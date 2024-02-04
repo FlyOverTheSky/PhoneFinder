@@ -4,3 +4,5 @@
 ## Технологии
 - Python
 - DRF
+- Celery
+- Redis
