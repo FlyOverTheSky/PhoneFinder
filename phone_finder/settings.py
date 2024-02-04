@@ -1,9 +1,10 @@
 import os.path
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-klnajf*1zk)$#a+8i#)m89a0ra%z&po!xe&xx@0!g&=_@#_&y&'
+SECRET_KEY = os.getenv("SECRET_KEY", "")
 
 DEBUG = True
 
@@ -18,11 +19,11 @@ DOWNLOAD_URLS = {
 }
 
 DB_DETAILS = {
-    'database': 'postgres',
-    'user': 'user',
-    'password': 'user',
-    'host': 'localhost',
-    'port': 5432
+    'database': os.getenv("DB", ""),
+    'user': os.getenv("DB_USER", ""),
+    'password': os.getenv("DB_PASSWORD", ""),
+    'host': os.getenv("DB_HOST", ""),
+    'port': os.getenv("DB_PORT", "")
 }
 
 TABLE_NAMES = [
@@ -31,6 +32,7 @@ TABLE_NAMES = [
     "8xx",
     "9xx"
 ]
+
 CSVS_FOLDER_NAME = 'csvs'
 CSVS_PATH = os.path.join(BASE_DIR, 'phone_finder', CSVS_FOLDER_NAME)
 
