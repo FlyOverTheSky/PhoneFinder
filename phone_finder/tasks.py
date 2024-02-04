@@ -6,7 +6,7 @@ from phone_finder.tables import create_tables, download_tables, delete_first_row
 
 
 @app.task
-def repeat_order_make():
+def tables_updater():
     conn = create_connection(DB_DETAILS)
     download_tables(TABLE_NAMES)
     delete_first_row(TABLE_NAMES)
