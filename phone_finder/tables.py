@@ -39,7 +39,7 @@ def create_connection(connection_details: dict) -> psycopg2.connect:
         print("Подключение к Postgres установлено")
         return connection
     except psycopg2.OperationalError as e:
-        raise f"Возникла ошибка {e}"
+        raise e
 
 
 def create_tables(connection: psycopg2.connect, names: list) -> None:
@@ -49,8 +49,8 @@ def create_tables(connection: psycopg2.connect, names: list) -> None:
     for name in names:
         query = f'''CREATE TABLE IF NOT EXISTS "{name}"(
         "АВС/ DEF" varchar NOT NULL,
-        От integer NOT NULL,
-        До integer NOT NULL,
+        От integer NOT NULL ,
+        До integer NOT NULL ,
         Емкость integer NOT NULL,
         Оператор varchar NOT NULL,
         Регион varchar NOT NULL,
@@ -69,6 +69,15 @@ def update_tables(connection: psycopg2.connect, names: list) -> None:
         COPY "{name}"("АВС/ DEF", От, До, Емкость, Оператор, Регион, ИНН)
         FROM '{main_file_path}'
         WITH (DELIMITER ';');'''
+        cursor.execute(query)
+
+
+def delete_tables(connection, names) -> None:
+    """Костыль для исключекния дубликации данных."""
+    connection.autocommit = True
+    cursor = connection.cursor()
+    for name in names:
+        query = f'''DROP TABLE "{name}";'''
         cursor.execute(query)
 
 

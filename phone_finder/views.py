@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from phone_finder.phone_finder import search_phone_details
+from phone_finder.finder import search_phone_details
 from phone_finder.forms import CheckPhoneForm
 
 
